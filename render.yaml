@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: framewise
+    runtime: docker
+    plan: free            # Chromium+FFmpeg need RAM: use a paid plan with >=2 GB for 1080p, then raise MAX_PIXELS
+    healthCheckPath: /healthz
+    envVars:
+      - key: MAX_PIXELS
+        value: "921600"   # ~720p; videos above this are auto-downscaled
+      - key: CONCURRENCY
+        value: "1"
+      - key: ACCESS_PASSWORD   # optional: set in the dashboard to password-protect the whole site
+        sync: false
